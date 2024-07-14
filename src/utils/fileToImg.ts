@@ -43,7 +43,10 @@ export function base64ToFile(base64: string, fileName: string): File {
  * @param base64 Base64编码
  * @returns string URL
  */
-export function base64ToUrl(base64: string): string {
+export function setUrl(base64: string): string {
+  if (base64 === 'src/assets/defaultAvatar.jpg') {
+    return 'src/assets/defaultAvatar.jpg'
+  }
   const fileName = 'temp_file' // 可以根据需要指定文件名
   const file = base64ToFile(base64, fileName)
   return URL.createObjectURL(file)

@@ -70,7 +70,13 @@ export const useUserStore = defineStore(
       return { ...user }
     }
     //设置头像
-    const setAvator = () => {}
+    const setAvator = (avatarBase64: string) => {
+      const user = users.value.find((item) => item.id === token.value)
+      if (user) {
+        user.userAvator = avatarBase64
+        ElMessage.success('上传成功!')
+      }
+    }
 
     const updataUserInfo = (editUser: User) => {
       const user = users.value.find((item) => item.id === token.value)
@@ -101,6 +107,7 @@ export const useUserStore = defineStore(
         user.address = address
         user.phone = phone
       }
+      ElMessage.success('编辑成功！')
     }
     return {
       token,

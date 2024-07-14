@@ -3,9 +3,12 @@ import { ref } from 'vue'
 import { useUserStore } from '@/stores'
 import cloneDeep from 'lodash/cloneDeep'
 import { Plus, Minus } from '@element-plus/icons-vue'
+import { ElMessage } from 'element-plus'
+import { fileToBase64 } from '@/utils/fileToImg'
 
 const userStore = useUserStore()
 const showEditDialog = ref(false)
+const showUploadDialog = ref(false)
 const formRef = ref()
 const user = ref({
   id: 1,
@@ -48,16 +51,46 @@ const saveEdit = () => {
   showEditDialog.value = false
   formRef.value.resetFields()
 }
+
+// 上传头像
+const handleAvatar = async (uploadFile) => {
+  const base64img = await fileToBase64(uploadFile.raw)
+  userStore.setAvator(base64img)
+  showUploadDialog.value = false
+  user.value = userStore.getUser()
+}
+
+const beforeAvatarUpload = (file) => {
+  const isJPG = file.type === 'image/jpeg' || file.type === 'image/png'
+  const isLt2M = file.size / 1024 / 1024 < 2
+
+  if (!isJPG) {
+    ElMessage.error('上传头像图片只能是 JPG 或 PNG 格式!')
+  }
+  if (!isLt2M) {
+    ElMessage.error('上传头像图片大小不能超过 2MB!')
+  }
+  return isJPG && isLt2M
+}
+
+const avatarHover = ref(false)
 </script>
 
 <template>
   <div class="profile-container">
     <el-card class="profile-card">
       <div class="profile-header">
-        <el-avatar :src="user.userAvator" size="large"></el-avatar>
+        <el-avatar
+          :src="user.userAvator"
+          size="large"
+          @click="showUploadDialog = true"
+          :style="{ border: avatarHover ? '2px solid blue' : 'none' }"
+          @mouseenter="avatarHover = true"
+          @mouseleave="avatarHover = false"
+        ></el-avatar>
         <div class="profile-info">
           <h3>{{ user.nickName || user.username }}</h3>
-          <p>{{ user.description }}</p>
+          <p>{{ user.description || '用户未留下签名' }}</p>
         </div>
       </div>
       <el-divider></el-divider>
@@ -189,6 +222,29 @@ const saveEdit = () => {
         </span>
       </template>
     </el-dialog>
+
+    <!-- 上传图像的对话框 -->
+    <el-dialog
+      title="修改头像"
+      style="display: flex; flex-direction: column; width: 350px"
+      v-model="showUploadDialog"
+      center
+    >
+      <el-upload
+        class="avatar-uploader"
+        :auto-upload="false"
+        :show-file-list="false"
+        :on-change="handleAvatar"
+        :before-upload="beforeAvatarUpload"
+      >
+        <div class="avatar-wrapper">
+          <img :src="user.userAvator" class="avatar-img" />
+          <i class="overlay-icon">
+            <el-icon size="150"><Plus /></el-icon>
+          </i>
+        </div>
+      </el-upload>
+    </el-dialog>
   </div>
 </template>
 
@@ -218,6 +274,7 @@ const saveEdit = () => {
 .chara-tag {
   margin: 5px;
 }
+
 .editSk-Ca {
   display: flex;
   flex-direction: column;
@@ -225,5 +282,49 @@ const saveEdit = () => {
 
 .editSk-Ca-row {
   margin-bottom: 5px;
+}
+
+.avatar-uploader {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  border: 1px dashed #d9d9d9;
+  border-radius: 50%;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.avatar-uploader-icon {
+  font-size: 28px;
+  color: #8c939d;
+}
+
+.avatar-uploader img {
+  width: 100%;
+  height: 100%;
+}
+.avatar-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.overlay-icon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* 半透明背景 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white; /* 图标颜色 */
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.avatar-wrapper:hover .overlay-icon {
+  opacity: 1;
 }
 </style>

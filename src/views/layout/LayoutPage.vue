@@ -1,24 +1,29 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 import { useUserStore } from '@/stores'
 import { getCurrentTime } from '@/utils/getTime'
 import {
-  Menu as IconMenu,
+  Menu,
   ChatDotRound,
   HomeFilled,
   Promotion,
   Aim,
   Setting
 } from '@element-plus/icons-vue'
+import { setUrl } from '@/utils/fileToImg'
 
 const userStore = useUserStore()
 const router = useRouter()
+const route = useRoute()
 const headerRef = ref()
-const currentTitle = ref('')
-const currentItem = ref('')
 const currentTime = ref('')
 const isRotating = ref(false)
+const currentRoutePath = ref('')
+const nowPath = ref({})
+const lastPath = ref({})
+
+currentRoutePath.value = route.path
 
 const user = userStore.getUser()
 //设置时间定时器
@@ -37,8 +42,12 @@ const handleCommand = async (command: string) => {
     userStore.token = 0
     router.push('/login')
   } else {
-    router.push(`/user/${command}`)
+    router.push(`${command}`)
   }
+}
+const changePageHeader = (index: object) => {
+  lastPath.value = nowPath.value
+  nowPath.value = index
 }
 </script>
 
@@ -47,7 +56,7 @@ const handleCommand = async (command: string) => {
     <el-col :span="4">
       <div style="height: 98vh">
         <el-menu
-          default-active="/working"
+          :default-active="currentRoutePath"
           :default-openeds="['1', '2', '3', '4']"
           class="el-menu-vertical"
           ref="headerRef"
@@ -59,32 +68,64 @@ const handleCommand = async (command: string) => {
               <el-icon><HomeFilled /></el-icon>
               <span>首页</span>
             </template>
-            <el-menu-item index="/working">工作台</el-menu-item>
-            <el-menu-item index="/user">个人中心</el-menu-item>
+            <el-menu-item
+              @click="changePageHeader({ 工作台: '/working' })"
+              index="/working"
+              >工作台</el-menu-item
+            >
+            <el-menu-item
+              @click="changePageHeader({ 个人中心: '/user' })"
+              index="/user"
+              >个人中心</el-menu-item
+            >
           </el-sub-menu>
           <el-sub-menu index="2">
             <template #title>
-              <el-icon><icon-menu /></el-icon>
+              <el-icon><Menu /></el-icon>
               <span>待办事项</span>
             </template>
-            <el-menu-item index="/noteBook">笔记本</el-menu-item>
-            <el-menu-item index="/say">说说</el-menu-item>
+            <el-menu-item
+              @click="changePageHeader({ 笔记本: '/noteBook' })"
+              index="/noteBook"
+              >笔记本</el-menu-item
+            >
+            <el-menu-item
+              @click="changePageHeader({ 说说: '/say' })"
+              index="/say"
+              >说说</el-menu-item
+            >
           </el-sub-menu>
           <el-sub-menu index="3">
             <template #title>
               <el-icon><ChatDotRound /></el-icon>
-              <span>聊天室（待完成）</span>
+              <span>聊天室</span>
             </template>
-            <el-menu-item index="/chat">聊天室1</el-menu-item>
+            <el-menu-item
+              @click="changePageHeader({ 聊天室: '/chat' })"
+              index="/chat"
+              >聊天室</el-menu-item
+            >
           </el-sub-menu>
           <el-sub-menu index="4">
             <template #title>
               <el-icon><Promotion /></el-icon>
               <span>相册</span>
             </template>
-            <el-menu-item index="/scenery">风景</el-menu-item>
-            <el-menu-item index="/food">美食</el-menu-item>
-            <el-menu-item index="/daily">日常</el-menu-item>
+            <el-menu-item
+              @click="changePageHeader({ 风景: '/scenery' })"
+              index="/scenery"
+              >风景</el-menu-item
+            >
+            <el-menu-item
+              @click="changePageHeader({ 美食: '/food' })"
+              index="/food"
+              >美食</el-menu-item
+            >
+            <el-menu-item
+              @click="changePageHeader({ 日常: '/daily' })"
+              index="/daily"
+              >日常</el-menu-item
+            >
           </el-sub-menu>
           <el-sub-menu index="5">
             <template #title>
@@ -103,17 +144,20 @@ const handleCommand = async (command: string) => {
             <el-breadcrumb-item :to="{ path: './working' }">
               首页
             </el-breadcrumb-item>
-            <el-breadcrumb-item v-if="currentTitle">
-              <span>{{ currentTitle }}</span>
+            <el-breadcrumb-item
+              v-if="Object.keys(lastPath).length !== 0"
+              :to="{ path: `${lastPath[Object.keys(lastPath)[0]]}` }"
+            >
+              <span>{{ Object.keys(lastPath)[0] }}</span>
             </el-breadcrumb-item>
-            <el-breadcrumb-item v-if="currentItem">{{
-              currentItem
+            <el-breadcrumb-item v-if="Object.keys(nowPath).length !== 0">{{
+              Object.keys(nowPath)[0]
             }}</el-breadcrumb-item>
           </el-breadcrumb>
         </template>
         <template #content>
           <span class="text-large font-600 mr-3">
-            {{ currentItem }}
+            {{ Object.keys(nowPath)[0] }}
           </span>
         </template>
         <template #extra>
@@ -123,7 +167,7 @@ const handleCommand = async (command: string) => {
           </div>
           <div class="SimpleUserInfo">
             <div style="display: flex; flex-direction: row">
-              <div><el-avatar :src="user.userAvator" /></div>
+              <div><el-avatar :src="setUrl(`${user.userAvator}`)" /></div>
               <div style="margin-left: 20px; line-height: 45px">
                 你好！{{ user.username }}
               </div>
