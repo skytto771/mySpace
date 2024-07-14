@@ -72,7 +72,46 @@ export const useUserStore = defineStore(
     //设置头像
     const setAvator = () => {}
 
-    return { token, users, lastid, addUser, setUser, getUser, setAvator }
+    const updataUserInfo = (editUser: User) => {
+      const user = users.value.find((item) => item.id === token.value)
+      console.log(editUser)
+      const {
+        id,
+        username,
+        password,
+        email,
+        userAvator,
+        nickName,
+        skill,
+        chara,
+        description,
+        address,
+        phone
+      } = editUser
+      if (user) {
+        user.id = id
+        user.username = username
+        user.password = password
+        user.email = email
+        user.userAvator = userAvator
+        user.nickName = nickName
+        user.skill = skill
+        user.chara = chara
+        user.description = description
+        user.address = address
+        user.phone = phone
+      }
+    }
+    return {
+      token,
+      users,
+      lastid,
+      addUser,
+      setUser,
+      getUser,
+      setAvator,
+      updataUserInfo
+    }
   },
   {
     persist: true
