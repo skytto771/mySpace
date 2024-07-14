@@ -7,7 +7,7 @@ import DailyPage from '@/views/album/DailyPage.vue'
 import SceneryPage from '@/views/album/SceneryPage.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 import LoginPage from '@/views/login/LoginPage.vue'
-import layoutPage from '@/views/layout/LayoutPage.vue'
+import LayoutPage from '@/views/layout/LayoutPage.vue'
 
 import { useUserStore } from '@/stores/modules/user'
 import ChatPage from '@/views/chat/ChatPage.vue'
@@ -18,7 +18,7 @@ const router = createRouter({
     { path: '/login', component: LoginPage },
     {
       path: '/',
-      component: layoutPage,
+      component: LayoutPage,
       redirect: '/working',
       children: [
         { path: '/working', component: HomePage },
@@ -39,7 +39,7 @@ router.beforeEach((to) => {
   const userStore = useUserStore()
 
   // 检查是否存在 token
-  if (!userStore.token && to.path !== '/login') {
+  if (userStore.token === 0 && to.path !== '/login') {
     // 如果没有 token 且目标路径不是登录页，则重定向到登录页
     return '/login'
   }
