@@ -5,7 +5,7 @@ import { ElMessage } from 'element-plus'
 export const useUserStore = defineStore(
   'userStore',
   () => {
-    interface User {
+    type UserType = {
       id: number
       username: string
       password: string
@@ -21,7 +21,7 @@ export const useUserStore = defineStore(
 
     const lastid = ref(41200)
     const token = ref(0)
-    const users = ref<User[]>([])
+    const users = ref<UserType[]>([])
     //登录
     const setUser = (username: string, password: string) => {
       //检查是否存在用户
@@ -78,7 +78,7 @@ export const useUserStore = defineStore(
       }
     }
 
-    const updataUserInfo = (editUser: User) => {
+    const updataUserInfo = (editUser: UserType) => {
       const user = users.value.find((item) => item.id === token.value)
       console.log(editUser)
       const {

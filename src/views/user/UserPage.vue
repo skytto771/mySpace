@@ -140,9 +140,13 @@ const avatarHover = ref(false)
               </el-tag>
             </el-form-item>
           </el-col>
+          <el-col :span="8" :offset="8">
+            <el-button style="width: 100%" type="primary" @click="readyEdit"
+              >编辑信息</el-button
+            >
+          </el-col>
         </el-row>
       </div>
-      <el-button type="primary" @click="readyEdit">编辑信息</el-button>
     </el-card>
 
     <!-- 编辑信息的对话框 -->
