@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
 import { ref } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useUserStore } from '@/stores'
@@ -32,7 +32,7 @@ setInterval(() => {
   currentTime.value = getCurrentTime()
 }, 1000)
 // 下拉菜单
-const handleCommand = async (command: string) => {
+const handleCommand = async (command) => {
   if (command === 'logout') {
     await ElMessageBox.confirm('确认退出吗？', '提示', {
       confirmButtonText: '确认',
@@ -45,7 +45,7 @@ const handleCommand = async (command: string) => {
     router.push(`${command}`)
   }
 }
-const changePageHeader = (index: object) => {
+const changePageHeader = (index) => {
   lastPath.value = nowPath.value
   nowPath.value = index
 }
