@@ -236,6 +236,6 @@ const changePageHeader = (index) => {
 .mainPage {
   width: 100%;
   height: 87%;
-  max-height: 85vh;
+  max-height: 675px;
 }
 </style>

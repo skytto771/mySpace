@@ -9,3 +9,4 @@ export default pinia
 export * from '@/stores/modules/user'
 export * from '@/stores/modules/chat'
 export * from '@/stores/modules/note'
+export * from '@/stores/modules/talk'
