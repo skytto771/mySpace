@@ -55,86 +55,78 @@ const changePageHeader = (index) => {
   <el-row class="theLayout">
     <el-col :span="4">
       <div style="height: 98vh">
-        <el-menu
-          :default-active="currentRoutePath"
-          :default-openeds="['1', '2', '3', '4']"
-          class="el-menu-vertical"
-          ref="headerRef"
-          router
-        >
-          <h3 class="el-menu-title"><span>个人空间</span></h3>
-          <el-sub-menu index="1">
-            <template #title>
-              <el-icon><HomeFilled /></el-icon>
-              <span>首页</span>
-            </template>
-            <el-menu-item
-              @click="changePageHeader({ 工作台: '/working' })"
-              index="/working"
-              >工作台</el-menu-item
-            >
-            <el-menu-item
-              @click="changePageHeader({ 个人中心: '/user' })"
-              index="/user"
-              >个人中心</el-menu-item
-            >
-          </el-sub-menu>
-          <el-sub-menu index="2">
-            <template #title>
-              <el-icon><Menu /></el-icon>
-              <span>待办事项</span>
-            </template>
-            <el-menu-item
-              @click="changePageHeader({ 笔记本: '/noteBook' })"
-              index="/noteBook"
-              >笔记本</el-menu-item
-            >
-            <el-menu-item
-              @click="changePageHeader({ 说说: '/say' })"
-              index="/say"
-              >说说</el-menu-item
-            >
-          </el-sub-menu>
-          <el-sub-menu index="3">
-            <template #title>
-              <el-icon><ChatDotRound /></el-icon>
-              <span>聊天室</span>
-            </template>
-            <el-menu-item
-              @click="changePageHeader({ 聊天室: '/chat' })"
-              index="/chat"
-              >聊天室</el-menu-item
-            >
-          </el-sub-menu>
-          <el-sub-menu index="4">
-            <template #title>
-              <el-icon><Promotion /></el-icon>
-              <span>相册</span>
-            </template>
-            <el-menu-item
-              @click="changePageHeader({ 风景: '/scenery' })"
-              index="/scenery"
-              >风景</el-menu-item
-            >
-            <el-menu-item
-              @click="changePageHeader({ 美食: '/food' })"
-              index="/food"
-              >美食</el-menu-item
-            >
-            <el-menu-item
-              @click="changePageHeader({ 日常: '/daily' })"
-              index="/daily"
-              >日常</el-menu-item
-            >
-          </el-sub-menu>
-          <el-sub-menu index="5">
-            <template #title>
-              <el-icon><Aim /></el-icon>
-              <span>个人项目</span>
-            </template>
-            <el-menu-item index="2-1">个人空间</el-menu-item>
-          </el-sub-menu>
-        </el-menu>
+        <el-scrollbar>
+          <el-menu
+            :default-active="currentRoutePath"
+            :default-openeds="['1', '2', '3', '4']"
+            class="el-menu-vertical"
+            ref="headerRef"
+            router
+          >
+            <h3 class="el-menu-title"><span>个人空间</span></h3>
+            <el-sub-menu index="1">
+              <template #title>
+                <el-icon><HomeFilled /></el-icon>
+                <span>首页</span>
+              </template>
+              <el-menu-item
+                @click="changePageHeader({ 工作台: '/working' })"
+                index="/working"
+                >工作台</el-menu-item
+              >
+              <el-menu-item
+                @click="changePageHeader({ 个人中心: '/user' })"
+                index="/user"
+                >个人中心</el-menu-item
+              >
+            </el-sub-menu>
+            <el-sub-menu index="2">
+              <template #title>
+                <el-icon><Menu /></el-icon>
+                <span>待办事项</span>
+              </template>
+              <el-menu-item
+                @click="changePageHeader({ 笔记本: '/noteBook' })"
+                index="/noteBook"
+                >笔记本</el-menu-item
+              >
+              <el-menu-item
+                @click="changePageHeader({ 说说: '/say' })"
+                index="/say"
+                >说说</el-menu-item
+              >
+            </el-sub-menu>
+            <el-sub-menu index="3">
+              <template #title>
+                <el-icon><ChatDotRound /></el-icon>
+                <span>聊天室</span>
+              </template>
+              <el-menu-item
+                @click="changePageHeader({ 聊天室: '/chat' })"
+                index="/chat"
+                >聊天室</el-menu-item
+              >
+            </el-sub-menu>
+            <el-sub-menu index="4">
+              <template #title>
+                <el-icon><Promotion /></el-icon>
+                <span>相册</span>
+              </template>
+              <el-menu-item
+                @click="changePageHeader({ 日常: '/album' })"
+                index="/album"
+                >相册</el-menu-item
+              >
+            </el-sub-menu>
+            <el-sub-menu index="5">
+              <template #title>
+                <el-icon><Aim /></el-icon>
+                <span>个人项目</span>
+              </template>
+              <el-menu-item index="2-1">个人空间</el-menu-item>
+            </el-sub-menu>
+          </el-menu>
+        </el-scrollbar>
       </div>
     </el-col>
     <el-col :span="20">
@@ -205,6 +197,17 @@ const changePageHeader = (index) => {
 .theLayout {
   width: 100%;
   height: 100%;
+  background-color: #efbcda;
+  background-image: -webkit-linear-gradient(
+    45deg,
+    rgb(171, 245, 218) 25%,
+    transparent 25%,
+    transparent 50%,
+    rgb(150, 212, 236) 50%,
+    rgb(239, 147, 228) 75%,
+    transparent 75%,
+    transparent
+  );
 }
 .el-menu-title {
   margin: 0;
@@ -217,6 +220,8 @@ const changePageHeader = (index) => {
 .pageHeader {
   height: 100px;
   box-shadow: 1px 5px 15px rgba(103, 103, 103, 0.31);
+  overflow: hidden;
+  background-color: rgb(255, 255, 255);
 }
 .SimpleUserInfo {
   display: flex;
@@ -236,6 +241,6 @@ const changePageHeader = (index) => {
 .mainPage {
   width: 100%;
   height: 87%;
-  max-height: 675px;
+  max-height: 668px;
 }
 </style>

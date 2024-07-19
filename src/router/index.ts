@@ -8,6 +8,7 @@ import SceneryPage from '@/views/album/SceneryPage.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 import LoginPage from '@/views/login/LoginPage.vue'
 import LayoutPage from '@/views/layout/LayoutPage.vue'
+import AlbumList from '@/views/album/AlbumList.vue'
 
 import { useUserStore } from '@/stores/modules/user'
 import ChatPage from '@/views/chat/ChatPage.vue'
@@ -25,9 +26,10 @@ const router = createRouter({
         { path: '/user', component: UserPage },
         { path: '/noteBook', component: NoteBook },
         { path: '/say', component: SaySomething },
-        { path: '/daily', component: DailyPage },
-        { path: '/food', component: FoodPage },
-        { path: '/scenery', component: SceneryPage },
+        { path: '/album/daily', component: DailyPage },
+        { path: '/album/food', component: FoodPage },
+        { path: '/album/scenery', component: SceneryPage },
+        { path: '/album', component: AlbumList },
         { path: '/chat', component: ChatPage }
       ]
     }

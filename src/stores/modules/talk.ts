@@ -45,7 +45,7 @@ export const useTalkStore = defineStore(
       console.log(id)
       const comments = talkLog.value.find((item) => item.id === id)?.comments
       if (comments) {
-        comments.unshift(commentData)
+        comments.push(commentData)
       }
       console.log(comments)
       ElMessage.success('评论成功')

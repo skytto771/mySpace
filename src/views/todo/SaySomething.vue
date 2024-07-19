@@ -107,7 +107,12 @@ const showEmoji2 = (emoji) => {
 
 <template>
   <div class="talk-container">
-    <el-button class="post-button" circle @click="toggleInput">
+    <el-button
+      style="width: 50px; height: 47px"
+      class="post-button"
+      circle
+      @click="toggleInput"
+    >
       <el-icon size="60"><ChatDotRound /></el-icon
     ></el-button>
 
@@ -294,14 +299,10 @@ const showEmoji2 = (emoji) => {
   justify-items: center;
   width: 100%;
   height: 100%;
-  background: url('https://th.bing.com/th?id=OIP.2rQ25qnSMQHXGcHz3Rp2pAAAAA&w=316&h=197&c=8&rs=1&qlt=90&o=6&dpr=1.3&pid=3.1&rm=2')
-    no-repeat center / cover;
 }
 
 .post-button {
   position: fixed;
-  width: auto;
-  height: auto;
   bottom: 20px;
   right: 20px;
   z-index: 100;
