@@ -153,6 +153,7 @@ const adjustDialogSize = (event) => {
 
 <style scoped>
 .container {
+  transform: translate(0, 50%);
   padding: 20px;
   max-width: 1050px;
   margin: auto;

@@ -114,8 +114,7 @@ const submitLogin = async () => {
 
 <template>
   <el-row class="login-page">
-    <el-col :span="12" class="bg"></el-col>
-    <el-col :span="6" :offset="3" class="form">
+    <el-col :span="10" :offset="7" class="form">
       <transition name="flip">
         <el-card shadow="hover" v-if="isRegister" v-show="isShow">
           <template #header>
@@ -219,12 +218,6 @@ const submitLogin = async () => {
   height: 100vh;
   background-color: #fff;
   background: url('@/assets/bg.jpg') no-repeat center / cover;
-  .bg {
-    background:
-      url('@/assets/logo2.png') no-repeat 60% center / 240px auto,
-      url('@/assets/login_bg.jpg') no-repeat center / cover;
-    border-radius: 0 20px 20px 0;
-  }
   .form {
     display: flex;
     flex-direction: column;

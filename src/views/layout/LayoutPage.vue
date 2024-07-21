@@ -219,6 +219,7 @@ const changePageHeader = (index) => {
 }
 .pageHeader {
   height: 100px;
+  border-bottom: 1px solid rgb(220, 223, 230);
   box-shadow: 1px 5px 15px rgba(103, 103, 103, 0.31);
   overflow: hidden;
   background-color: rgb(255, 255, 255);
