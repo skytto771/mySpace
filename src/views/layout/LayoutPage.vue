@@ -158,7 +158,7 @@ const changePageHeader = (index) => {
         <template #extra>
           <div class="dateAndWeather">
             <span style="margin-right: 20px">{{ currentTime }}</span>
-            <span style="margin-right: 20px"
+            <span style="margin-right: 20px" v-if="weatherStore.weather"
               >天气：{{ weatherStore.weather.weather }}</span
             >
           </div>
