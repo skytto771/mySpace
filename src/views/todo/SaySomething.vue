@@ -12,6 +12,7 @@ import { fileToBase64 } from '@/utils/fileToImg'
 import data from 'emoji-mart-vue-fast/data/all.json'
 import 'emoji-mart-vue-fast/css/emoji-mart.css'
 import { Picker, EmojiIndex } from 'emoji-mart-vue-fast/src'
+import { ElMessage } from 'element-plus'
 
 let emojiIndex = new EmojiIndex(data)
 const visibleEmoji1 = ref(false)
@@ -57,6 +58,10 @@ function handleClose(done) {
 }
 
 function postNewSay() {
+  if (newSayContent.value.content === '') {
+    ElMessage.error('请输入内容')
+    return
+  }
   newSayContent.value.createTime = new Date().toLocaleString()
   talkStore.addTalk(JSON.parse(JSON.stringify(newSayContent.value)))
   fileList.value = []

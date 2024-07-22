@@ -23,14 +23,18 @@ export const useWorkStore = defineStore(
 
     const delTodo = (id: number) => {
       const theTodoIndex = todo.value.findIndex((item) => item.id === id)
-      todo.value.splice(theTodoIndex, 1)
-      ElMessage.success('成功删除该待办事项!')
+      if (theTodoIndex !== -1) {
+        todo.value.splice(theTodoIndex, 1)
+        ElMessage.success('成功删除该待办事项!')
+      }
     }
 
     const setTop = (id: number) => {
       const theTodoIndex = todo.value.findIndex((item) => item.id === id)
-      const [TheTodo] = todo.value.splice(theTodoIndex, 1)
-      todo.value.unshift(TheTodo)
+      if (theTodoIndex !== -1) {
+        const [TheTodo] = todo.value.splice(theTodoIndex, 1)
+        todo.value.unshift(TheTodo)
+      }
     }
 
     const setClock = (id: number, clockTime: string) => {

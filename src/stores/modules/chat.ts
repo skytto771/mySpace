@@ -1,6 +1,5 @@
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
-import { ElMessage } from 'element-plus'
 
 export const useChatStore = defineStore(
   'chatStore',

@@ -1,6 +1,7 @@
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
 import { ElMessage } from 'element-plus'
+import avatar from '@/assets/defaultAvatar.jpg'
 
 export const useUserStore = defineStore(
   'userStore',
@@ -53,7 +54,7 @@ export const useUserStore = defineStore(
         username,
         password,
         email,
-        userAvator: 'src/assets/defaultAvatar.jpg',
+        userAvator: avatar,
         nickName: '',
         skill: [],
         chara: [],

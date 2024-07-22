@@ -38,6 +38,10 @@ const statistics = ref([
 ])
 
 const addtodos = () => {
+  if (newTodo.value.text === '') {
+    ElMessage.error('请输入内容')
+    return
+  }
   const newId = workStore.todo.length + 1
   const todo = {
     id: newId,
@@ -52,11 +56,16 @@ const addtodos = () => {
 }
 
 const handleClose = () => {
+  if (newTodo.value.text === '') {
+    newTodoVisible.value = false
+    return
+  }
   ElMessageBox.confirm('是否保存?')
     .then(() => {
       addtodos()
     })
     .catch(() => {
+      newTodo.value.text = ''
       newTodoVisible.value = false
       return
     })

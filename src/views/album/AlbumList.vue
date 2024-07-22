@@ -13,7 +13,7 @@ const dialogVisible = ref(false)
 const VisiblePreview = ref(false)
 const dialogWidth = ref('auto')
 const dialogHeight = ref('auto')
-const formRef = ref
+const formRef = ref()
 
 const optionsPic = ref(['风景', '美食', '日常'])
 
@@ -48,6 +48,15 @@ const newAlbum = ref({
 })
 
 const handleAddAlbum = () => {
+  if (newAlbum.value.classification === '') {
+    ElMessage.error('请选择分类!')
+    return
+  }
+
+  if (!newAlbum.value.url[0]) {
+    ElMessage.error('请上传至少一张图片!')
+    return
+  }
   newAlbum.value.createTime = new Date().toLocaleString()
   newAlbum.value.id = albumStore.album.length + 1
   albumStore.addPic({ ...newAlbum.value })

@@ -4,7 +4,6 @@ import { useUserStore, useChatStore } from '@/stores'
 import data from 'emoji-mart-vue-fast/data/all.json'
 import 'emoji-mart-vue-fast/css/emoji-mart.css'
 import { Picker, EmojiIndex } from 'emoji-mart-vue-fast/src'
-import { setUrl } from '@/utils/fileToImg'
 
 let emojiIndex = new EmojiIndex(data)
 const userStore = useUserStore()
@@ -34,6 +33,8 @@ const sendMessage = () => {
     setTimeout(() => {
       scrollRef.value.setScrollTop(10000)
     }, 200)
+  } else {
+    ElMessage.error('请输入内容')
   }
 }
 const showEmoji = (emoji) => {
@@ -52,7 +53,7 @@ const showEmoji = (emoji) => {
             {{ message.createTime }}
           </div>
           <div class="message-left" v-if="message.id !== user.id">
-            <img :src="setUrl(message.userAvator)" class="avatar" />
+            <img :src="message.userAvator" class="avatar" />
             <div class="message-content">
               <div class="user-name" style="display: flex; margin-right: auto">
                 {{ message.username }}
@@ -61,7 +62,7 @@ const showEmoji = (emoji) => {
             </div>
           </div>
           <div class="message-right" v-else>
-            <img :src="setUrl(message.userAvator)" class="avatar" />
+            <img :src="message.userAvator" class="avatar" />
             <div class="message-content">
               <div class="user-name" style="display: flex; margin-left: auto">
                 {{ message.username }}
@@ -88,7 +89,7 @@ const showEmoji = (emoji) => {
           class="message-input"
           @keyup.enter="sendMessage"
         />
-        <el-button type="primary" @click="sendMessage">Send</el-button>
+        <el-button type="primary" @click="sendMessage">发送</el-button>
       </div>
     </div>
   </div>

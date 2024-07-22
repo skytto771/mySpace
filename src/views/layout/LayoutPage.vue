@@ -11,7 +11,6 @@ import {
   Aim,
   Setting
 } from '@element-plus/icons-vue'
-import { setUrl } from '@/utils/fileToImg'
 
 const userStore = useUserStore()
 const weatherStore = useWeatherStore()
@@ -165,7 +164,7 @@ const changePageHeader = (index) => {
           </div>
           <div class="SimpleUserInfo">
             <div style="display: flex; flex-direction: row">
-              <div><el-avatar :src="setUrl(`${user.userAvator}`)" /></div>
+              <div><el-avatar :src="user.userAvator" /></div>
               <div style="margin-left: 20px; line-height: 45px">
                 你好！{{ user.username }}
               </div>
