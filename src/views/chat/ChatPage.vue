@@ -100,7 +100,7 @@ const showEmoji = (emoji) => {
   flex-direction: column;
   height: 100%;
   width: 100%;
-  background-color: rgb(255, 255, 255);
+  background-color: rgb(245, 245, 245);
 }
 
 .chat-room-header {

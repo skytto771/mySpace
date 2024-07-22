@@ -169,7 +169,7 @@ const showEmoji2 = (emoji) => {
         </span>
       </template>
     </el-dialog>
-    <el-scrollbar class="scrollbar">
+    <el-scrollbar class="scrollbar" v-if="talksList[0]">
       <div class="talks-list">
         <el-card
           v-for="(talk, index) in talksList"
@@ -290,6 +290,11 @@ const showEmoji2 = (emoji) => {
         </el-card>
       </div>
     </el-scrollbar>
+    <el-empty
+      style="width: 100%"
+      v-else
+      description="点击右下角的按钮发表第一篇说说吧！"
+    />
   </div>
 </template>
 

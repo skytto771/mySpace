@@ -179,7 +179,10 @@ const delNote = (noteId) => {
                 <el-icon size="large"><Plus /></el-icon>
               </el-button>
             </div>
-            <div style="width: 100%; text-align: center" v-if="!notes[0]">
+            <div
+              style="width: 100%; text-align: center"
+              v-if="!notes[0] && searchInp !== ''"
+            >
               搜索结果为空
             </div>
           </div>
@@ -212,7 +215,7 @@ const delNote = (noteId) => {
               theme="snow"
               @textChange="setContent"
             />
-            <el-empty v-else description="description" />
+            <el-empty v-else description=" " />
           </el-main>
         </el-container>
       </el-container>

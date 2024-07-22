@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
-import { useUserStore } from '@/stores'
+import { useUserStore, useWeatherStore, useWorkStore } from '@/stores'
 import { getCurrentTime } from '@/utils/getTime'
 import {
   Menu,
@@ -14,6 +14,8 @@ import {
 import { setUrl } from '@/utils/fileToImg'
 
 const userStore = useUserStore()
+const weatherStore = useWeatherStore()
+const workStore = useWorkStore()
 const router = useRouter()
 const route = useRoute()
 const headerRef = ref()
@@ -22,6 +24,8 @@ const isRotating = ref(false)
 const currentRoutePath = ref('')
 const nowPath = ref({})
 const lastPath = ref({})
+
+workStore.VisitPlus()
 
 currentRoutePath.value = route.path
 
@@ -123,7 +127,7 @@ const changePageHeader = (index) => {
                 <el-icon><Aim /></el-icon>
                 <span>个人项目</span>
               </template>
-              <el-menu-item index="2-1">个人空间</el-menu-item>
+              <el-menu-item index="/">个人空间</el-menu-item>
             </el-sub-menu>
           </el-menu>
         </el-scrollbar>
@@ -155,7 +159,9 @@ const changePageHeader = (index) => {
         <template #extra>
           <div class="dateAndWeather">
             <span style="margin-right: 20px">{{ currentTime }}</span>
-            <span style="margin-right: 20px">天气：晴</span>
+            <span style="margin-right: 20px"
+              >天气：{{ weatherStore.weather.weather }}</span
+            >
           </div>
           <div class="SimpleUserInfo">
             <div style="display: flex; flex-direction: row">
