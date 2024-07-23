@@ -77,33 +77,33 @@ const changePageHeader = (index) => {
                 index="/working"
                 >工作台</el-menu-item
               >
+            </el-sub-menu>
+            <el-sub-menu index="2">
+              <template #title>
+                <el-icon><Menu /></el-icon>
+                <span>个人管理</span>
+              </template>
               <el-menu-item
                 @click="changePageHeader({ 个人中心: '/user' })"
                 index="/user"
                 >个人中心</el-menu-item
               >
-            </el-sub-menu>
-            <el-sub-menu index="2">
-              <template #title>
-                <el-icon><Menu /></el-icon>
-                <span>待办事项</span>
-              </template>
               <el-menu-item
                 @click="changePageHeader({ 笔记本: '/noteBook' })"
                 index="/noteBook"
                 >笔记本</el-menu-item
               >
+            </el-sub-menu>
+            <el-sub-menu index="3">
+              <template #title>
+                <el-icon><ChatDotRound /></el-icon>
+                <span>互动</span>
+              </template>
               <el-menu-item
                 @click="changePageHeader({ 说说: '/say' })"
                 index="/say"
                 >说说</el-menu-item
               >
-            </el-sub-menu>
-            <el-sub-menu index="3">
-              <template #title>
-                <el-icon><ChatDotRound /></el-icon>
-                <span>聊天室</span>
-              </template>
               <el-menu-item
                 @click="changePageHeader({ 聊天室: '/chat' })"
                 index="/chat"
